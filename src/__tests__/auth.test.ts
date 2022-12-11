@@ -6,10 +6,10 @@ test('Auth API Test', async () => {
     (
       await AuthRequest.newToken({
         authNewToken: {
-          clientId: process.env.clientId,
-          clientSecret: process.env.clientSecret,
-          password: process.env.password,
-          username: process.env.username,
+          clientId: process.env.CLIENT_ID,
+          clientSecret: process.env.CLIENT_SECRET,
+          password: process.env.PASSWORD,
+          username: process.env.USER_NAME,
         },
       })
     ).metadata.code,

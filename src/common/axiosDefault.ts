@@ -8,6 +8,6 @@ const instance = axios.create({
 });
 
 if (AuthRequest?.authAccessToken)
-  instance.defaults.headers.common = { Authorization: `bearer ${AuthRequest.authAccessToken}` };
+  instance.defaults.headers.common = { Authorization: `bearer ${AuthRequest.authAccessToken.accessToken}` };
 
 export default instance;

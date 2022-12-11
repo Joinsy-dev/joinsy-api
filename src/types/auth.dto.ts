@@ -1,4 +1,4 @@
-import { MainResponse } from './mainResponse';
+import { MainResponse, MainResponseError } from './mainResponse';
 
 export class AuthNewToken {
   public clientId: string | undefined;
@@ -24,6 +24,6 @@ export interface AuthNewTokenResponse extends MainResponse {
 }
 
 export interface AuthAccessToken {
-  accessToken: string;
+  accessToken: string | undefined;
   expiresAt: Date;
 }

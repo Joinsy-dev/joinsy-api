@@ -1,6 +1,11 @@
+require('dotenv').config();
 import { PrivateOpportunitiesRequest } from '../requests/privateOpportunities';
 import * as moment from 'moment';
+import { AuthRequest } from '../requests/auth';
 
+jest.setTimeout(60000);
+
+AuthRequest.setAccessToken({ accessToken: process.env.TOKEN_ACCESS, expiresAt: moment().add(1, `day`).toDate() });
 test('Private Opportunities Search API Test', async () => {
   expect(
     (

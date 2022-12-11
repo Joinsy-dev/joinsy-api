@@ -1,19 +1,23 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import axiosInstance from '../common/axiosDefault';
 import { AuthAccessToken, AuthNewToken, AuthNewTokenResponse } from '../types/auth.dto';
+import { MainResponseError } from '../types/mainResponse';
 
 export class AuthRequest {
   static authAccessToken: AuthAccessToken | null = null;
 
   static async newToken({ authNewToken }: { authNewToken: AuthNewToken }) {
-    const result: AxiosResponse<AuthNewTokenResponse> = await axiosInstance.post(`auth/token`, authNewToken);
-    if (axios.isAxiosError(result)) throw new Error(result.response?.data?.error);
-
-    AuthRequest.setAccessToken({ ...result.data.result });
-    return result.data;
+    const response: AxiosResponse<AuthNewTokenResponse> | AxiosError<MainResponseError> = await axiosInstance
+      .post(`auth/token`, authNewToken)
+      .catch((error) => error);
+    if (axios.isAxiosError(response)) {
+      throw new Error(response.response?.data.metadata.error);
+    }
+    AuthRequest.setAccessToken({ ...response.data.result });
+    return response.data;
   }
 
   static setAccessToken(token: AuthAccessToken) {
-    this.authAccessToken = token;
+    AuthRequest.authAccessToken = token;
   }
 }

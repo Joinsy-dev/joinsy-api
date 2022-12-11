@@ -1,0 +1,2 @@
+yarn prepare
+yarn test

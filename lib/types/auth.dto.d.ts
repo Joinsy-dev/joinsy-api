@@ -21,6 +21,6 @@ export interface AuthNewTokenResponse extends MainResponse {
     };
 }
 export interface AuthAccessToken {
-    accessToken: string;
+    accessToken: string | undefined;
     expiresAt: Date;
 }
